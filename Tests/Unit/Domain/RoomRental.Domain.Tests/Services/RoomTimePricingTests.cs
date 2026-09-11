@@ -126,6 +126,9 @@ public class RoomTimePricingTests
         var charge = Split(9, 12, onlyPeak).Should().ContainSingle().Which;
 
         charge.PricingRuleId.Should().BeNull("на эти часы не заведено ни одного правила");
+        charge.Description.Should().Be(
+            BookingCharge.BaseRateDescription,
+            "часы без правила не должны выдавать себя за часы настоящего правила");
         charge.Multiplier.Should().Be(1m);
         charge.Quantity.Should().Be(3m);
         charge.Amount.Should().Be(6000m);

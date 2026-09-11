@@ -24,6 +24,7 @@ public interface IServiceRepository
     /// <summary>
     /// Действующие услуги по списку идентификаторов. Ненайденные просто отсутствуют в ответе;
     /// проверку полноты выполняет <see cref="ServiceRepositoryExtensions.GetAllByIdsAsync"/>.
+    /// Результат пригоден для включения в состав зала, то есть возвращается отслеживаемым.
     /// </summary>
     Task<IReadOnlyList<Service>> GetByIdsAsync(
         IReadOnlyList<Guid> ids,

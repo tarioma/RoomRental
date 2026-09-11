@@ -13,6 +13,13 @@ public class BookingCharge
     /// </summary>
     public const int MaxDescriptionLength = 200;
 
+    /// <summary>
+    /// Описание для часов, не покрытых ни одним правилом ценообразования.
+    /// Отдельное название нужно, чтобы такие часы не сливались в счёте и отчётах
+    /// с часами настоящего правила.
+    /// </summary>
+    public const string BaseRateDescription = "Базовая ставка";
+
     private BookingCharge(
         Guid id,
         ChargeKind kind,
@@ -165,7 +172,7 @@ public class BookingCharge
         return new BookingCharge(
             id: Guid.CreateVersion7(),
             kind: ChargeKind.RoomTime,
-            description: rule?.Name ?? "Стандартные часы",
+            description: rule?.Name ?? BaseRateDescription,
             bookingId,
             serviceId: null,
             pricingRuleId: rule?.Id,

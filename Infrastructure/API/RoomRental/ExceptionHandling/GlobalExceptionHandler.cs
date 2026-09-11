@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RoomRental.Application.Abstraction.Exceptions;
+using RoomRental.Domain.Exceptions;
 
 namespace RoomRental.ExceptionHandling;
 
@@ -51,7 +52,7 @@ internal class GlobalExceptionHandler(
         EntityNotFoundException => (StatusCodes.Status404NotFound, "Не найдено"),
         SlotAlreadyBookedException => (StatusCodes.Status409Conflict, "Время занято"),
         EmailAlreadyTakenException => (StatusCodes.Status409Conflict, "Email занят"),
-        InvalidOperationException => (StatusCodes.Status409Conflict, "Действие недопустимо"),
+        BookingAlreadyStartedException => (StatusCodes.Status409Conflict, "Бронь уже началась"),
         ArgumentException => (StatusCodes.Status400BadRequest, "Некорректный запрос"),
         _ => (StatusCodes.Status500InternalServerError, "Внутренняя ошибка сервера"),
     };

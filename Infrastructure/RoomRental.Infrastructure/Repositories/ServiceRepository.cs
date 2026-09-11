@@ -33,8 +33,9 @@ public class ServiceRepository(DatabaseContext context) : IServiceRepository
         IReadOnlyList<Guid> ids,
         CancellationToken cancellationToken = default)
     {
+        // Отслеживание намеренное: найденные услуги попадают в состав нового зала,
+        // и без него Entity Framework счёл бы их новыми записями и вставил заново.
         return await context.Services
-            .AsNoTracking()
             .Where(s => ids.Contains(s.Id) && s.DeletedAtUtc == null)
             .OrderBy(s => s.Id)
             .ToListAsync(cancellationToken);

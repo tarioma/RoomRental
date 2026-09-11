@@ -1,4 +1,5 @@
 using RoomRental.Domain.Enums;
+using RoomRental.Domain.Exceptions;
 using RoomRental.Domain.Tests.TestData;
 
 namespace RoomRental.Domain.Tests.Entities;
@@ -79,7 +80,7 @@ public class BookingCancelTests
 
         var act = () => booking.Cancel(booking.Period.StartsAtUtc);
 
-        act.Should().Throw<InvalidOperationException>();
+        act.Should().Throw<BookingAlreadyStartedException>();
         booking.Status.Should().Be(BookingStatus.Confirmed);
         booking.Slots.Should().HaveCount(2, "неудачная отмена не освобождает часы");
     }

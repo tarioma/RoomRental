@@ -1,5 +1,6 @@
 using Ardalis.GuardClauses;
 using RoomRental.Domain.Enums;
+using RoomRental.Domain.Exceptions;
 using RoomRental.Domain.Services;
 using RoomRental.Domain.ValueObjects;
 
@@ -38,6 +39,7 @@ public class Booking
         Guard.Against.Default(customerId);
         Guard.Against.Default(createdAtUtc);
         Guard.Against.Null(charges);
+        Guard.Against.Null(slots);
 
         Id = id;
         RoomId = roomId;
@@ -210,7 +212,7 @@ public class Booking
 
         if (Period.StartsAtUtc <= utcNow)
         {
-            throw new InvalidOperationException("Нельзя отменить начавшуюся бронь.");
+            throw new BookingAlreadyStartedException("Нельзя отменить начавшуюся бронь.");
         }
 
         Status = BookingStatus.Cancelled;

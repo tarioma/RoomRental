@@ -190,7 +190,7 @@ public class Room
 
         if (services.Any(s => s.IsDeleted))
         {
-            throw new ArgumentException("Нельзя добавить удаленную услугу.");
+            throw new ArgumentException("Нельзя добавить удалённую услугу.");
         }
 
         var target = services.DistinctBy(s => s.Id).ToList();
