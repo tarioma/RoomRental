@@ -95,13 +95,13 @@ Swagger UI: <http://localhost:8080/swagger>
 в `ConnectionStrings:DefaultConnection`.
 
 ```bash
-dotnet run --project Infrastructure/API/RoomRental
+dotnet run --project src/Infrastructure/API/RoomRental
 ```
 
 Секреты в репозитории не хранятся, поэтому перед первым запуском:
 
 ```bash
-cd Infrastructure/API/RoomRental
+cd src/Infrastructure/API/RoomRental
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=room_rental;Username=postgres;Password=<пароль>"
 dotnet user-secrets set "Jwt:Key" "<ключ не короче 32 символов>"
 dotnet user-secrets set "Seed:AdminPassword" "<пароль администратора>"
@@ -286,17 +286,18 @@ dotnet test
 приложение - о домене, домен не знает ни о ком.
 
 ```
-Domain              сущности, value object, доменный сервис расчёта.
-                    Без зависимостей, кроме Ardalis.GuardClauses
+src/
+  Domain              сущности, value object, доменный сервис расчёта.
+                      Без зависимостей, кроме Ardalis.GuardClauses
 
-Application         Abstraction: команды, запросы, DTO, интерфейсы репозиториев
-                    UseCases:    обработчики MediatR, тонкие, без бизнес-логики
+  Application         Abstraction: команды, запросы, DTO, интерфейсы репозиториев
+                      UseCases:    обработчики MediatR, тонкие, без бизнес-логики
 
-Infrastructure      Dal:            DbContext, конфигурации EF, миграции
-                    Infrastructure: реализации репозиториев, BCrypt, JWT, наполнение базы
-                    API:            контроллеры, контракты, маппинг, обработка ошибок
+  Infrastructure      Dal:            DbContext, конфигурации EF, миграции
+                      Infrastructure: реализации репозиториев, BCrypt, JWT, наполнение базы
+                      API:            контроллеры, контракты, маппинг, обработка ошибок
 
-Tests               юнит-тесты домена
+  Tests               юнит-тесты домена
 ```
 
 Бизнес-правила живут в домене. Обработчик команды только собирает данные, отдаёт их доменной

@@ -19,7 +19,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Infrastructure/API/RoomRental/Dockerfile
+      dockerfile: src/Infrastructure/API/RoomRental/Dockerfile
     depends_on:
       # Ждём готовности базы: приложение накатывает миграции сразу на старте
       postgres:
